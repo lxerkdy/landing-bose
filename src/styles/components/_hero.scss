@@ -1,0 +1,85 @@
+@use '../abstracts' as *;
+
+// Кадрування за Image logic: desktop - FILL WIDTH по центру; mobile / tablet - FILL HEIGHT зі зсувом кадру
+@layer components {
+  .hero {
+    position: relative;
+    overflow: hidden;
+    background: var(--color-overlay);
+
+    @include sized(height, hero);
+
+    &__media,
+    &__img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    &__img {
+      object-fit: cover;
+      object-position: 55% center;
+
+      @include mq(md) {
+        object-position: 38% center;
+      }
+
+      @include mq(lg) {
+        object-position: center;
+      }
+    }
+
+    &__content {
+      position: absolute;
+      inset: auto 0 rem(46);
+
+      @include mq(md) {
+        bottom: rem(60);
+      }
+
+      @include mq(lg) {
+        bottom: rem(70);
+      }
+    }
+
+    &__wave {
+      width: rem(48);
+      height: rem(57);
+      margin-bottom: rem(20);
+      fill: currentcolor;
+
+      @include mq(md) {
+        width: rem(56);
+        height: rem(64);
+        margin-bottom: rem(28);
+      }
+
+      @include mq(lg) {
+        width: rem(63);
+        height: rem(76);
+        margin-bottom: rem(38);
+      }
+    }
+
+    &__title {
+      font-size: rem(29);
+      font-style: italic;
+      font-weight: 800;
+      letter-spacing: -0.035em;
+      line-height: 1.05;
+
+      @include mq(md) {
+        font-size: rem(36);
+      }
+
+      @include mq(lg) {
+        font-size: rem(44);
+      }
+    }
+
+    &__line {
+      display: block;
+    }
+  }
+}
