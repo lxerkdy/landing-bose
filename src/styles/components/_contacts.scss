@@ -1,0 +1,65 @@
+@use '../abstracts' as *;
+
+// Контакти: форма (5 з 12 / 3 з 6) + дані (5 з 12 / 3 з 6); на mobile - стопкою
+@layer components {
+  .contacts {
+    &__layout {
+      row-gap: rem(40);
+      margin-top: rem(40);
+
+      @include mq(md) {
+        margin-top: rem(56);
+      }
+    }
+
+    &__form {
+      display: grid;
+      grid-column: 1 / -1;
+      gap: rem(16);
+      align-content: start;
+
+      @include mq(md) {
+        grid-column: 1 / span 3;
+      }
+
+      @include mq(lg) {
+        grid-column: 1 / span 5;
+      }
+    }
+
+    &__send {
+      margin-top: rem(8);
+    }
+
+    &__info {
+      display: grid;
+      grid-column: 1 / -1;
+      gap: rem(24);
+      align-content: start;
+
+      @include mq(md) {
+        grid-column: 4 / -1;
+      }
+
+      @include mq(lg) {
+        grid-column: 8 / -1;
+      }
+    }
+
+    &__label {
+      color: var(--color-muted);
+      font-size: rem(12);
+    }
+
+    &__value {
+      margin-top: rem(8);
+      font-size: rem(14);
+      font-style: normal;
+      line-height: 1.5;
+    }
+
+    &__link:is(:hover, :focus-visible) {
+      text-decoration: underline;
+    }
+  }
+}

@@ -1,0 +1,54 @@
+@use '../abstracts' as *;
+
+// «Why buy direct»: заголовок + список переваг і абзац. Mobile - стопкою, tablet 3 + 3, desktop 5 + 5
+@layer components {
+  .benefits {
+    row-gap: rem(24);
+
+    &__title {
+      grid-column: 1 / -1;
+      font-size: rem(32);
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+
+      @include mq(md) {
+        grid-column: 1 / span 3;
+        font-size: rem(40);
+      }
+
+      @include mq(lg) {
+        grid-column: 1 / span 5;
+        font-size: rem(48);
+        line-height: 1.05;
+      }
+    }
+
+    &__line {
+      display: block;
+    }
+
+    &__body {
+      grid-column: 1 / -1;
+
+      @include mq(md) {
+        grid-column: 4 / -1;
+      }
+
+      @include mq(lg) {
+        grid-column: 6 / span 5;
+      }
+    }
+
+    &__item {
+      font-size: rem(15);
+      font-weight: 600;
+      line-height: 1.7;
+    }
+
+    &__text {
+      margin-top: rem(24);
+      font-size: rem(15);
+      line-height: 1.75;
+    }
+  }
+}
