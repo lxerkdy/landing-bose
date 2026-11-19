@@ -1,0 +1,29 @@
+@use 'sass:map';
+@use '../abstracts' as *;
+
+// Токени -> CSS custom properties; параметри сітки перевизначаються на брейкпоінтах
+@layer base {
+  :root {
+    @each $name, $value in $colors {
+      --color-#{$name}: #{$value};
+    }
+
+    --font-family: #{$font-family};
+    --grid-columns: #{map.get(map.get($grid, base), columns)};
+    --grid-gutter: #{map.get(map.get($grid, base), gutter)};
+    --grid-margin: #{map.get(map.get($grid, base), margin)};
+    --grid-max-width: #{$max-width};
+
+    @include mq(md) {
+      --grid-columns: #{map.get(map.get($grid, md), columns)};
+      --grid-gutter: #{map.get(map.get($grid, md), gutter)};
+      --grid-margin: #{map.get(map.get($grid, md), margin)};
+    }
+
+    @include mq(lg) {
+      --grid-columns: #{map.get(map.get($grid, lg), columns)};
+      --grid-gutter: #{map.get(map.get($grid, lg), gutter)};
+      --grid-margin: #{map.get(map.get($grid, lg), margin)};
+    }
+  }
+}

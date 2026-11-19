@@ -1,1 +1,9 @@
+@use 'sass:meta';
+
+// Порядок шарів оголошується один раз: пріоритет визначається ним, а не специфічністю.
+// meta.load-css потрібен, щоб оголошення шарів потрапило в CSS раніше за самі шари
+// (@use завжди піднімається нагору файлу).
 @layer reset, base, layout, components, utilities;
+
+@include meta.load-css('reset');
+@include meta.load-css('base');

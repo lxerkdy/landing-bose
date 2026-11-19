@@ -1,0 +1,29 @@
+@use '../abstracts' as *;
+
+// Лише селектори елементів - жодного класу
+@layer base {
+  @include motion-safe {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+
+  body {
+    min-width: 320px;
+    background: var(--color-bg);
+    color: var(--color-text);
+    font-family: var(--font-family);
+    font-size: rem(14);
+    line-height: 1.2;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-weight: 600;
+  }
+
+  :focus-visible {
+    @include focus-ring;
+  }
+}

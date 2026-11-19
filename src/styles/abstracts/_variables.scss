@@ -1,5 +1,67 @@
-// Брейкпоінти з макета Bose (звір з фреймами Grid/Info)
+// Дизайн-токени з макета Bose (Figma, Dev Mode).
+// SCSS-змінні потрібні для компіляції (mq, grid), CSS custom properties - для рантайму.
+
+// Брейкпоінти = ширини фреймів макета
 $breakpoints: (
   md: 744px,
   lg: 1260px,
+);
+
+// Модульна сітка: колонки, gutter, поля. Звірено з фреймами Grid / Info
+$grid: (
+  base: (
+    columns: 2,
+    gutter: 20px,
+    margin: 20px,
+  ),
+  md: (
+    columns: 6,
+    gutter: 24px,
+    margin: 72px,
+  ),
+  lg: (
+    columns: 12,
+    gutter: 24px,
+    margin: 120px,
+  ),
+);
+
+// Максимальна ширина макета (разом з полями)
+$max-width: 1260px;
+
+$colors: (
+  text: #292929,
+  bg: #fff,
+  surface: #f7f7f9,
+  muted: #8c8c92,
+  overlay: #e8eff9,
+  border-hover: #d0d0dc,
+  pressed: #121212,
+  error: #c62828,
+);
+
+$font-family: ('Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif);
+
+// Висота зображень за кадруванням з Image logic / виміри макета: base, md, lg
+$sizes: (
+  hero: (
+    568px,
+    992px,
+    720px,
+  ),
+  banner: (
+    200px,
+    400px,
+    456px,
+  ),
+  product-image: (
+    268px,
+    374px,
+    310px,
+  ),
+  category-row: (
+    130px,
+    184px,
+    325px,
+  ),
 );

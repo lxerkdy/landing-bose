@@ -1,5 +1,7 @@
+@use 'sass:list';
 @use 'sass:map';
 @use 'variables' as *;
+@use 'functions' as *;
 
 // Медіазапит mobile first: лише min-width, значення беруться з map-а $breakpoints
 @mixin mq($breakpoint) {
@@ -41,9 +43,9 @@
   }
 }
 
-// Видимий контур фокуса
-@mixin focus-ring($offset: 2px) {
-  outline: 2px solid var(--color-teal);
+// Видимий контур фокуса (у стилі макета - темний, з відступом)
+@mixin focus-ring($offset: 3px) {
+  outline: 2px solid var(--color-text);
   outline-offset: $offset;
 }
 
@@ -60,22 +62,29 @@
   border: 0;
 }
 
-// Центрування вмісту через flex
-@mixin flex-center($display: flex) {
-  display: $display;
-  align-items: center;
-  justify-content: center;
-}
+// Значення з map-у $sizes за брейкпоінтом: base / md / lg
+@mixin sized($property, $name) {
+  $values: map.get($sizes, $name);
 
-// Заголовковий шрифт Oswald: великі літери + інтервал між літерами
-@mixin heading-text($size: null, $weight: 400, $tracking: 1px) {
-  font-family: var(--font-heading);
+  #{$property}: list.nth($values, 1);
 
-  @if $size {
-    font-size: $size;
+  @include mq(md) {
+    #{$property}: list.nth($values, 2);
   }
 
-  font-weight: $weight;
-  letter-spacing: $tracking;
-  text-transform: uppercase;
+  @include mq(lg) {
+    #{$property}: list.nth($values, 3);
+  }
+}
+
+// Смуга шапки / меню: логотип зліва, іконки справа (висоти з макета)
+@mixin bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-block: rem(24);
+
+  @include mq(md) {
+    padding-block: rem(32);
+  }
 }
