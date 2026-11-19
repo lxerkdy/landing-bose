@@ -1,0 +1,36 @@
+@use '../abstracts' as *;
+
+// Кнопка: default (темна) -> hover (контур) -> pressed (майже чорна)
+@layer components {
+  .button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: rem(56);
+    padding-inline: rem(32);
+    border: 3px solid var(--color-text);
+    border-radius: rem(28);
+    background: var(--color-text);
+    color: var(--color-bg);
+    font-size: rem(16);
+    font-weight: 700;
+    line-height: 1;
+
+    @include transition((color, background-color, border-color));
+
+    &:is(:hover, :focus-visible) {
+      background: var(--color-bg);
+      color: var(--color-text);
+    }
+
+    &:active {
+      border-color: var(--color-pressed);
+      background: var(--color-pressed);
+      color: var(--color-bg);
+    }
+
+    &--block {
+      width: 100%;
+    }
+  }
+}
