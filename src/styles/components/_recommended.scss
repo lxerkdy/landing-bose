@@ -1,0 +1,32 @@
+@use '../abstracts' as *;
+
+// Картки по колонках: 2 колонки (mobile), 4 з 6 по центру (tablet), по 4 з 12 (desktop)
+@layer components {
+  .recommended {
+    &__list {
+      row-gap: rem(50);
+      margin-top: rem(54);
+
+      @include mq(md) {
+        row-gap: rem(56);
+        margin-top: rem(72);
+      }
+
+      @include mq(lg) {
+        row-gap: 0;
+      }
+    }
+
+    &__item {
+      grid-column: 1 / -1;
+
+      @include mq(md) {
+        grid-column: 2 / span 4;
+      }
+
+      @include mq(lg) {
+        grid-column: span 4;
+      }
+    }
+  }
+}
