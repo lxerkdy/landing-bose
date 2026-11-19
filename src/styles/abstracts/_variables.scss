@@ -28,7 +28,6 @@ $grid: (
 
 // Максимальна ширина макета (разом з полями)
 $max-width: 1260px;
-
 $colors: (
   text: #292929,
   bg: #fff,
@@ -39,8 +38,7 @@ $colors: (
   pressed: #121212,
   error: #c62828,
 );
-
-$font-family: ('Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif);
+$font-family: ('Inter', system-ui, -apple-system, 'Segoe UI', roboto, sans-serif);
 
 // Висота зображень за кадруванням з Image logic / виміри макета: base, md, lg
 $sizes: (
