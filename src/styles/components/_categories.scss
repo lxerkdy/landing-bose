@@ -1,0 +1,25 @@
+@use '../abstracts' as *;
+
+@layer components {
+  .categories {
+    &__list {
+      row-gap: rem(40);
+      margin-top: rem(40);
+
+      @include mq(md) {
+        row-gap: rem(66);
+        margin-top: rem(56);
+      }
+    }
+
+    &__more {
+      display: flex;
+      justify-content: center;
+      margin-top: rem(40);
+
+      @include mq(md) {
+        margin-top: rem(66);
+      }
+    }
+  }
+}
