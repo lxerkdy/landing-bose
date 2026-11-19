@@ -1,0 +1,8 @@
+@use '../abstracts' as *;
+
+// Утиліти мають найвищий пріоритет за порядком шарів, навіть із меншою специфічністю
+@layer utilities {
+  .visually-hidden {
+    @include visually-hidden;
+  }
+}
