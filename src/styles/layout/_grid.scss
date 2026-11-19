@@ -1,0 +1,44 @@
+@use '../abstracts' as *;
+
+// Модульна сітка макета: 2 / 6 / 12 колонок (токени --grid-*).
+// Контент центрується й обмежується max-width; елементи ставляться по колонках (grid-column).
+@layer layout {
+  .container {
+    width: 100%;
+    max-width: var(--grid-max-width);
+    margin-inline: auto;
+    padding-inline: var(--grid-margin);
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(var(--grid-columns), minmax(0, 1fr));
+    column-gap: var(--grid-gutter);
+    width: 100%;
+    max-width: var(--grid-max-width);
+    margin-inline: auto;
+    padding-inline: var(--grid-margin);
+
+    // Режим налагодження: підсвічує колонки для звірки з макетом
+    &--debug {
+      --grid-col: calc(
+        (100% - (var(--grid-columns) - 1) * var(--grid-gutter)) / var(--grid-columns)
+      );
+
+      background-image: repeating-linear-gradient(
+        to right,
+        rgb(255 0 0 / 12%) 0,
+        rgb(255 0 0 / 12%) var(--grid-col),
+        transparent var(--grid-col),
+        transparent calc(var(--grid-col) + var(--grid-gutter))
+      );
+      background-clip: content-box;
+    }
+
+    // Вкладена сітка успадковує колонки батька
+    &--sub {
+      grid-template-columns: subgrid;
+      padding-inline: 0;
+    }
+  }
+}

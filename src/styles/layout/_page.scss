@@ -1,0 +1,18 @@
+@use '../abstracts' as *;
+
+// Каркас сторінки: вертикальний ритм між секціями
+@layer layout {
+  .page {
+    display: flex;
+    flex-direction: column;
+    overflow-x: clip;
+  }
+
+  .section {
+    padding-top: rem(64);
+
+    @include mq(md) {
+      padding-top: rem(120);
+    }
+  }
+}
