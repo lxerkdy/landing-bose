@@ -1,0 +1,5 @@
+//- Заголовок секції з необов'язковим вступним абзацом.
+mixin section-title(id, text, lead)
+  h2.section-title(id=id)= text
+  if lead
+    p.section-lead= lead

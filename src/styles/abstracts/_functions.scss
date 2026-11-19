@@ -1,0 +1,6 @@
+@use 'sass:math';
+
+// Переводить px у rem (за замовчуванням 1rem = 16px): rem(18) -> 1.125rem
+@function rem($px, $base: 16) {
+  @return math.div($px, $base) * 1rem;
+}

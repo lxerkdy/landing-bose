@@ -1,0 +1,36 @@
+//- Адаптивне зображення: <picture> з AVIF, WebP та JPEG-запасним варіантом.
+//- Файли беруться з src/assets/images/ за іменем {name}-{ширина}.{avif|webp|jpg} (генерує npm run images).
+//- opts: widths, sizes, width, height (атрибути для уникнення зсуву макета),
+//-       lazy (за замовчуванням true), priority (fetchpriority="high"), className.
+mixin picture(name, alt, opts = {})
+  -
+    const {
+      widths = [400, 800],
+      sizes = '100vw',
+      width,
+      height,
+      lazy = true,
+      priority = false,
+      className = 'picture__img'
+    } = opts
+    const dir = '/src/assets/images'
+    const srcset = (ext) => widths.map((w) => `${dir}/${name}-${w}.${ext} ${w}w`).join(', ')
+    const largest = widths[widths.length - 1]
+
+  //- width і height обов'язкові: без них браузер не резервує місце і макет «стрибає»
+  unless width && height
+    - throw new Error(`+picture('${name}'): потрібні width і height`)
+
+  picture
+    source(type='image/avif', srcset=srcset('avif'), sizes=sizes)
+    source(type='image/webp', srcset=srcset('webp'), sizes=sizes)
+    img(
+      class=className,
+      src=`${dir}/${name}-${largest}.jpg`,
+      alt=alt,
+      width=width,
+      height=height,
+      loading=lazy ? 'lazy' : false,
+      fetchpriority=priority ? 'high' : false,
+      decoding='async'
+    )

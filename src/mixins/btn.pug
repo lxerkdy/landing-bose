@@ -1,0 +1,33 @@
+//- Кнопка або посилання-кнопка.
+//- text - підпис, href - адреса (без href буде <button>), variant - 'primary' | 'secondary', as - 'a' | 'button' | 'label'.
+//- Вкладений вміст (block) виводиться перед підписом (наприклад, іконка), довільні атрибути приходять через &attributes.
+//-   +btn('Contact us', 'mailto:hello@keepsake.studio')(aria-label='Write to us')
+//-     +icon('mail')
+mixin btn(text, href, variant = 'primary', as)
+  -
+    const tag = as || (href ? 'a' : 'button')
+    let modifier
+
+  case variant
+    when 'primary'
+      - modifier = 'btn--primary'
+    when 'secondary'
+      - modifier = 'btn--secondary'
+    default
+      - modifier = `btn--${variant}`
+
+  if tag === 'a'
+    a.btn(class=modifier, href=href)&attributes(attributes)
+      if block
+        block
+      = text
+  else if tag === 'label'
+    label.btn(class=modifier)&attributes(attributes)
+      if block
+        block
+      = text
+  else
+    button.btn(class=modifier)&attributes(attributes)
+      if block
+        block
+      = text
