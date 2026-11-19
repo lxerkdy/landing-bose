@@ -1,0 +1,19 @@
+@use '../abstracts' as *;
+
+@layer components {
+  .logo {
+    display: block;
+    width: rem(122);
+
+    @include mq(md) {
+      width: rem(183);
+    }
+
+    &__img {
+      width: 100%;
+      aspect-ratio: 1913 / 232;
+      height: auto;
+      fill: currentcolor;
+    }
+  }
+}

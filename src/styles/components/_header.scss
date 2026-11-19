@@ -1,0 +1,73 @@
+@use '../abstracts' as *;
+
+// Шапка лежить поверх hero. Іконки - посилання (меню працює через :target, без JS).
+@layer components {
+  .header {
+    position: absolute;
+    inset: 0 0 auto;
+    z-index: 10;
+    color: var(--color-text);
+
+    &__bar {
+      @include bar;
+    }
+
+    &__tools {
+      display: flex;
+      align-items: center;
+      gap: rem(8);
+    }
+
+    &__link {
+      position: relative;
+      display: grid;
+      place-items: center;
+      width: rem(44);
+      height: rem(44);
+      margin-inline: rem(-8);
+    }
+
+    &__icon {
+      width: rem(18);
+      height: rem(18);
+      fill: currentcolor;
+
+      &--burger {
+        height: rem(12);
+      }
+
+      // Burger у стані hover - окрема геометрія тієї ж іконки
+      &--hover {
+        display: none;
+      }
+    }
+
+    // Номер з'являється зліва від іконки телефону при hover / focus
+    &__phone {
+      @include visually-hidden;
+
+      right: 100%;
+      font-size: rem(12);
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      white-space: nowrap;
+    }
+
+    &__link--phone:is(:hover, :focus-visible) &__phone {
+      position: absolute;
+      width: auto;
+      height: auto;
+      margin: 0;
+      overflow: visible;
+      clip-path: none;
+    }
+
+    &__link--burger:is(:hover, :focus-visible) &__icon--burger {
+      display: none;
+    }
+
+    &__link--burger:is(:hover, :focus-visible) &__icon--hover {
+      display: block;
+    }
+  }
+}

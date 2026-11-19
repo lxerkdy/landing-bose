@@ -1,0 +1,83 @@
+@use '../abstracts' as *;
+
+// Оверлей-меню: відкривається через :target (#menu), закривається переходом на будь-яку якірку
+@layer components {
+  .nav {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    overflow-y: auto;
+    background: var(--color-overlay);
+    visibility: hidden;
+    opacity: 0;
+
+    @include transition((opacity, visibility));
+
+    &:target {
+      visibility: visible;
+      opacity: 1;
+    }
+
+    &__bar {
+      @include bar;
+    }
+
+    &__close {
+      display: grid;
+      place-items: center;
+      width: rem(44);
+      height: rem(44);
+      margin-inline: rem(-14);
+    }
+
+    &__close-icon {
+      width: rem(16);
+      height: rem(16);
+      fill: currentcolor;
+    }
+
+    &__body {
+      padding-top: rem(40);
+      padding-bottom: rem(40);
+
+      @include mq(md) {
+        padding-top: rem(48);
+      }
+    }
+
+    &__link {
+      display: inline-block;
+      padding-block: rem(14);
+      font-size: rem(22);
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      line-height: 1.2;
+      text-transform: uppercase;
+      border-bottom: 2px solid transparent;
+
+      @include transition((border-color));
+
+      &:is(:hover, :focus-visible) {
+        border-bottom-color: currentcolor;
+      }
+    }
+
+    &__phone {
+      display: block;
+      margin-top: rem(36);
+      font-size: rem(16);
+      font-weight: 700;
+    }
+
+    &__order {
+      display: inline-block;
+      margin-top: rem(24);
+      padding-bottom: rem(4);
+      font-size: rem(12);
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      border-bottom: 2px solid currentcolor;
+    }
+  }
+}
