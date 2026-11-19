@@ -1,0 +1,9 @@
+//- Поле форми (БЕМ-блок field): прихований label + input / textarea.
+//- attrs приходять через &attributes (type, name, autocomplete, required ...); placeholder збігається з підписом.
+mixin field(id, label, multiline)
+  .field
+    label.field__label(for=id)= label
+    if multiline
+      textarea.field__control.field__control--textarea(id=id, placeholder=label, rows='5')&attributes(attributes)
+    else
+      input.field__control(id=id, placeholder=label)&attributes(attributes)

@@ -1,7 +1,7 @@
 //- Адаптивне зображення: <picture> з AVIF, WebP та JPEG-запасним варіантом.
 //- Файли беруться з src/assets/images/ за іменем {name}-{ширина}.{avif|webp|jpg} (генерує npm run images).
-//- opts: widths, sizes, width, height (атрибути для уникнення зсуву макета),
-//-       lazy (за замовчуванням true), priority (fetchpriority="high"), className.
+//- opts: widths, sizes, width, height (атрибути для уникнення зсуву макета), lazy (за замовчуванням true),
+//-       priority (fetchpriority="high"), className (img), pictureClass (picture).
 mixin picture(name, alt, opts = {})
   -
     const {
@@ -11,7 +11,8 @@ mixin picture(name, alt, opts = {})
       height,
       lazy = true,
       priority = false,
-      className = 'picture__img'
+      className = 'picture__img',
+      pictureClass = false
     } = opts
     const dir = '/src/assets/images'
     const srcset = (ext) => widths.map((w) => `${dir}/${name}-${w}.${ext} ${w}w`).join(', ')
@@ -21,7 +22,7 @@ mixin picture(name, alt, opts = {})
   unless width && height
     - throw new Error(`+picture('${name}'): потрібні width і height`)
 
-  picture
+  picture(class=pictureClass)
     source(type='image/avif', srcset=srcset('avif'), sizes=sizes)
     source(type='image/webp', srcset=srcset('webp'), sizes=sizes)
     img(

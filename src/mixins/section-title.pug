@@ -1,5 +1,5 @@
-//- Заголовок секції з необов'язковим вступним абзацом.
-mixin section-title(id, text, lead)
-  h2.section-title(id=id)= text
-  if lead
-    p.section-lead= lead
+//- Заголовок секції (БЕМ-блок section-title). lines - масив рядків, що ламаються як у макеті.
+mixin section-title(id, lines)
+  h2.section-title(id=id)&attributes(attributes)
+    each line in lines
+      span.section-title__line= line

@@ -1,8 +1,156 @@
 extends ../layouts/main
 
+block data
+  //- Дані сторінки: масиви об'єктів, які виводяться через each
+  -
+    const phone = { label: '+1 234 5555-55-55', href: 'tel:+123455555555' }
+    const email = 'hello@miami.com'
+
+    const navItems = [
+      { label: 'Home', href: '#top' },
+      { label: 'Recommended', href: '#recommended' },
+      { label: 'Categories', href: '#categories' },
+      { label: 'How to buy', href: '#how-to-buy' },
+      { label: 'Contacts', href: '#contacts' },
+    ]
+
+    const products = [
+      { name: 'Bose portable Smart speaker', type: 'Smart home', price: '$ 399.00', image: 'product-portable' },
+      { name: 'SoundLink Flex Bluetooth speaker', type: 'Portable bluetooth', price: '$ 149.00', image: 'product-flex' },
+      { name: 'SoundLink Color Bluetooth speaker II', type: 'Portable bluetooth', price: '$ 129.00', image: 'product-color' },
+    ]
+
+    //- widths мають збігатися з scripts/images.mjs; w / h - розміри вихідника (для атрибутів width / height)
+    const sizes = {
+      wide: '(min-width: 1260px) 672px, (min-width: 744px) 392px, calc((100vw - 60px) / 2)',
+      narrow: '(min-width: 1260px) 324px, (min-width: 744px) 184px, calc((100vw - 60px) / 2)',
+    }
+    const imageAttrs = (name, kind, w, h, widths) => {
+      const largest = widths[widths.length - 1]
+      return { name, kind, widths, sizes: sizes[kind], width: largest, height: Math.round((largest * h) / w) }
+    }
+
+    const categories = [
+      {
+        slug: 'headphones',
+        title: 'Headphones & earbuds',
+        images: [
+          imageAttrs('category-earbuds-wide', 'wide', 1491, 497, [336, 672, 1344]),
+          imageAttrs('category-headphones-narrow', 'narrow', 1000, 1000, [324, 648]),
+        ],
+      },
+      {
+        slug: 'speakers',
+        title: 'Speakers',
+        images: [
+          imageAttrs('category-speakers-wide', 'wide', 1920, 1080, [336, 672, 1344]),
+          imageAttrs('category-speakers-narrow', 'narrow', 1600, 900, [324, 648]),
+        ],
+      },
+      {
+        slug: 'sunglasses',
+        title: 'Audio sunglasses',
+        images: [
+          imageAttrs('category-sunglasses-narrow', 'narrow', 460, 299, [230, 460]),
+          imageAttrs('category-sunglasses-wide', 'wide', 1280, 512, [336, 672, 1280]),
+        ],
+      },
+    ]
+
+    const benefits = [
+      'Free 2-day shipping and returns',
+      '90-day risk-free trial',
+      'World class customer service',
+      'My Bose account management',
+    ]
+
 block title
-  title Bose
+  title Bose: headphones, speakers and audio sunglasses
+
+block header
+  header.header
+    .header__bar.container
+      +logo
+      .header__tools
+        a.header__link.header__link--phone(href=phone.href, aria-label=`Call to order ${phone.label}`)
+          span.header__phone(aria-hidden='true')= phone.label
+          +icon('phone')(class='header__icon')
+        a.header__link.header__link--burger(href='#menu', aria-label='Open menu')
+          +icon('burger')(class='header__icon header__icon--burger')
+          +icon('burger-hover')(class='header__icon header__icon--burger header__icon--hover')
+    nav.nav(id='menu', aria-label='Main menu')
+      .nav__bar.container
+        +logo
+        a.nav__close(href='#top', aria-label='Close menu')
+          +icon('close')(class='nav__close-icon')
+      .nav__body.container
+        ul.nav__list
+          each item in navItems
+            li
+              a.nav__link(href=item.href)= item.label
+        a.nav__phone(href=phone.href)= phone.label
+        a.nav__order(href=phone.href) Call to order
 
 block content
-  main#main
-    h1 Bose
+  main
+    section.hero
+      +picture('hero', 'Woman in profile wearing silver Bose noise cancelling headphones', {widths: [640, 1280, 2520], width: 2520, height: 1440, lazy: false, priority: true, className: 'hero__img', pictureClass: 'hero__media'})
+      .hero__content.container
+        +icon('wave')(class='hero__wave')
+        h1.hero__title
+          span.hero__line The world shades.
+          span.hero__line Your music shines.
+
+    section.section.recommended(id='recommended', aria-labelledby='recommended-title')
+      +section-title('recommended-title', ['Recommended'])
+      ul.recommended__list.grid
+        each product in products
+          li.recommended__item
+            +product-card(product)
+
+    section.section.categories(id='categories', aria-labelledby='categories-title')
+      +section-title('categories-title', ['Browse Bose', 'products by category'])
+      .categories__list.grid
+        each item in categories
+          +category(item)
+      .categories__more
+        +btn('View all', '#categories')
+
+    section.section.benefits.grid(id='how-to-buy', aria-labelledby='benefits-title')
+      h2.benefits__title(id='benefits-title')
+        span.benefits__line Why buy direct
+        span.benefits__line from Bose
+      .benefits__body
+        ul.benefits__list
+          each benefit in benefits
+            li.benefits__item= benefit
+        p.benefits__text A great product is more than what’s in the box. It’s a promise of premium performance, world-class support, and everything you expect from a trusted brand. It’s just one of many reasons why you’ll shop with confidence on Bose.com.
+
+    section.section.contacts(id='contacts', aria-labelledby='contacts-title')
+      +section-title('contacts-title', ['Contact us'])
+      .contacts__layout.grid
+        form.contacts__form(action='#', method='post')
+          +field('contact-name', 'Name')(type='text', name='name', autocomplete='name', required)
+          +field('contact-email', 'Email')(type='email', name='email', autocomplete='email', required)
+          +field('contact-message', 'Message', true)(name='message', required)
+          +btn('Send', null, 'block')(type='submit', class='contacts__send')
+        dl.contacts__info
+          div
+            dt.contacts__label Phone
+            dd.contacts__value
+              a.contacts__link(href=phone.href)= phone.label
+          div
+            dt.contacts__label Email
+            dd.contacts__value
+              a.contacts__link(href=`mailto:${email}`)= email
+          div
+            dt.contacts__label Address
+            dd.contacts__value
+              | 400 first ave.
+              br
+              | suite 700
+              br
+              | Minneapolis, MN 55401
+
+    .banner
+      +picture('banner', 'Woman lying back with Bose earbuds, looking up', {widths: [640, 1280, 1920], width: 1920, height: 1080, className: 'banner__img', pictureClass: 'banner__media'})

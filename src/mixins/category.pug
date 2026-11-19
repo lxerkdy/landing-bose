@@ -1,0 +1,7 @@
+//- Категорія: два зображення (wide + narrow, порядок задає дані) і підпис.
+mixin category(item)
+  a.category(href='#', aria-labelledby=`category-${item.slug}`)&attributes(attributes)
+    each image in item.images
+      .category__media(class=`category__media--${image.kind}`)
+        +picture(image.name, '', {widths: image.widths, sizes: image.sizes, width: image.width, height: image.height, className: 'category__img', pictureClass: 'category__picture'})
+    span.category__title(id=`category-${item.slug}`)= item.title

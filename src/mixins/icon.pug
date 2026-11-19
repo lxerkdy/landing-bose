@@ -1,22 +1,5 @@
-//- Іконка за назвою.
-//- Іконки послуг (web, motion, print, illustration) - окремі інлайн-SVG, решта беруться зі спрайта (includes/sprite.svg).
+//- Іконка зі спрайта (src/includes/sprite.svg), колір береться з currentColor.
+//- name - id символу без префікса `i-`; клас задає блок-власник (`icon('phone')(class='header__icon')`).
 mixin icon(name)
-  case name
-    when 'web'
-      svg(viewBox='0 0 48 36', width='44', height='33', aria-hidden='true')&attributes(attributes)
-        rect.fill-sky.stroke-slate(x='1.5', y='1.5', width='45', height='33', stroke-width='3')
-        rect.fill-green(x='8', y='8', width='11', height='8')
-    when 'motion'
-      svg(viewBox='0 0 40 40', width='38', height='38', aria-hidden='true')&attributes(attributes)
-        rect.fill-slate(width='40', height='40', rx='8')
-        rect.fill-sky(x='9', y='9', width='22', height='22', rx='4')
-    when 'print'
-      svg(viewBox='0 0 44 34', width='42', height='32', aria-hidden='true')&attributes(attributes)
-        rect.fill-yellow(x='12', width='20', height='16')
-        rect.fill-grey(y='14', width='44', height='20', rx='4')
-    when 'illustration'
-      svg(viewBox='0 0 24 24', width='38', height='38', aria-hidden='true')&attributes(attributes)
-        use(href='#i-heart')
-    default
-      svg.icon(aria-hidden='true')&attributes(attributes)
-        use(href=`#i-${name}`)
+  svg(aria-hidden='true', focusable='false')&attributes(attributes)
+    use(href=`#i-${name}`)
