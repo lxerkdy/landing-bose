@@ -8,10 +8,20 @@ import sharp from 'sharp'
 const SRC_DIR = 'src/assets/images-src'
 const OUT_DIR = 'src/assets/images'
 
-// Ширини за префіксом імені файлу (мають збігатися з widths у Pug-міксинах)
+// Ширини за ім'ям файлу (мають збігатися з widths у src/pages/index.pug).
+// Не більше за ширину вихідника, інакше srcset обіцяє більше, ніж є у файлі.
 const WIDTHS = {
-  work: [357, 714],
-  journal: [150, 300],
+  hero: [640, 1280, 2520],
+  banner: [640, 1280, 1920],
+  'product-portable': [320],
+  'product-flex': [320],
+  'product-color': [320],
+  'category-earbuds-wide': [336, 672, 1344],
+  'category-speakers-wide': [336, 672, 1344],
+  'category-sunglasses-wide': [336, 672, 1280],
+  'category-headphones-narrow': [324, 648],
+  'category-speakers-narrow': [324, 648],
+  'category-sunglasses-narrow': [230, 460],
 }
 
 const FORMATS = {
@@ -27,7 +37,7 @@ const files = (await readdir(SRC_DIR)).filter((file) => file.endsWith('.webp'))
 
 for (const file of files) {
   const name = path.parse(file).name
-  const widths = WIDTHS[name.split('-')[0]]
+  const widths = WIDTHS[name]
 
   if (!widths) {
     console.warn(`Пропущено ${file}: немає налаштованих ширин`)
